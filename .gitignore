@@ -91,3 +91,6 @@ local.properties
 # STS (Spring Tool Suite)
 .springBeans
 /CourseSchedApp_v3.0.1/nbproject/private/
+
+*.form
+*.xml
