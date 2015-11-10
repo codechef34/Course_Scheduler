@@ -1,0 +1,206 @@
+/*
+ * Krizia Houston Buck 
+ * Planner Class in Scheduling 
+ * 11/09/2015 
+ */
+package pkg4490project;
+
+/**
+ *
+ * @author Krizia
+ */
+import java.util.*; 
+import java.io.*; 
+import java.lang.*; 
+
+public class Planner {
+    
+    
+    //Planner data members 
+    private Semester first_semester; 
+    private ArrayList<Semester> semester_list; 
+    private ArrayList<Program> program_list; 
+    
+    //Planner methods 
+    public Planner() 
+    {
+        //Initialize Planner object 
+  //HOW? WHAT?  
+        
+        //Set first_semester and add it to the semester_list 
+        first_semester = new Semester(); 
+        
+        //For 7 more semesters, add them to the list to be updated and displayed 
+        semester_list.add(first_semester); 
+        for (int i = 0; i < 7; i++)
+        {
+            Semester s = new Semester(); 
+            semester_list.add(s); 
+        }
+        
+        //Add to program_list CSCI for computer science 
+        program_list.add("CSCI"); 
+    }
+    
+    public Planner (Semester start) 
+    { 
+        //Initialize Planner object 
+     //WHAT?    
+        
+        //Set first_semester and add it to the semester_list 
+        first_semester = start; 
+        semester_list.add(first_semester); 
+        
+        //For 7 more semesters, add them to the semester_list to be updated and displayed 
+        semester_list.add(first_semester); 
+        for (int i = 0; i < 7; i++)
+        {
+            Semester s = new Semester(); 
+            semester_list.add(s); 
+        }
+        
+        //Add to program_list CSCI for computer science 
+        program_list.add("CSCI");     
+    }
+    
+    public boolean hasCourse(Course c) 
+    {
+        //For all of the semsters within semester_list, check if they contain Course 
+        //IF Course is found, return true 
+        for (Semester element : semester_list) 
+        {
+            ArrayList<Course> courses = element.getCourseList(); 
+            for (Course e : courses) 
+            {
+                if (e.compareTo(c) == 1) 
+                    return(true); 
+            }
+        }
+        
+        //ELSE, return false 
+        return(false); 
+    }
+    
+    public boolean hasPrereqScheduled(Course c) 
+    {
+        //Save Course's prerequisites from attribute into a list 
+        ArrayList<Course> prereqs = c.getPrerequisites(); 
+        int num = prereqs.size(); 
+        boolean flag = false; 
+        
+        //For all of the prerequisites, go through entire semester_list 
+        //Set flags in a parallel list 
+        for (Semester element : semester_list)
+        {
+            ArrayList<Course> courses = element.getCourseList(); 
+            for (Course e : courses) 
+            {
+                for (Course pr : prereqs) 
+                {
+                    if (e.compareTo(pr) == 1)
+                        check++; 
+                }
+            }
+        }
+        if (num != check) 
+            flag = false;         
+        
+        //IF all flags are true, return true 
+        if (flag == true) 
+            return(true); 
+        //ELSE, return false 
+        else 
+            return(false); 
+    }
+    
+    public boolean displayWarning(int check, Course c) //CHANGED, need displays 
+    {
+        boolean r; //return value 
+        
+        //IF user tries to delete a Course from a Semester, display a warning 
+        //IF user selects yes, remove warning and delete Course 
+        if (check == 1) 
+        {
+            //delete 
+            if ()
+            {}
+            //ELSE, do nothing 
+            else 
+                return(false); 
+            
+        }
+        
+        //IF user tries to add a Course without scheduled prerequisites, display a warning 
+        //IF user selects yes, add the Course 
+        else if (check == 2)
+        {
+       //DISPLAY ? 
+            r = hasPrereqScheduled(c); 
+            return(r); 
+        }
+            
+        //IF user tries to add a Course and goes over hours, display a warning 
+        //IF user selects yes, add the Course 
+        else if (check == 3)
+        { 
+     //DISPLAY WARNING 
+            
+            
+            return(r); 
+        }
+        else 
+            return(false); 
+    }
+    
+    public void addCourse(Course c, Semester s) 
+    {
+        //bool checks 
+        boolean flag1 = true; 
+        boolean flag2 = true; 
+        
+        //check for prerequisite error by using the course object 
+        flag1 = hasPrereqScheduled(c); 
+        if (flag1 == false) 
+            flag1 = displayWarning(2, c); 
+        
+        //check for overhours error by using the semester object 
+        int hours = s.getCurrentHours(); 
+        if ((hours + c.getHours()) >= 18)
+            flag2 = displayWarning(3, c);  
+        else 
+            flag2 = true; 
+        
+        //IF no errors OR warning ignored: add the course object passed in to the semester object passed in 
+        if ((flag1 == true) && (flag2 == true)) 
+            s.addCourse(c); 
+    }
+    
+    public ArrayList<Course> getSemesterCourseList(Semester s) 
+    {
+        //return the course list that is held in the semester object 
+        return(s.getCourseList())
+    }
+    
+    public ArrayList<Program> getProgramList(Program p) 
+    {
+        //return the program list 
+        return(p.getProgramList())
+    }
+    
+    public void addProgram(Program p) 
+    {
+        //save passed in program field to this object's program field 
+        program_list.add(p); 
+    }
+    
+    public void resetPlanner() 
+    {
+        //delete this object's first semester field 
+        first_semester = null; 
+        
+        //delete this object's semester and program list fields 
+        semester_list = null; 
+        program_list = null; 
+    }
+}
+
