@@ -5,7 +5,8 @@
  */
 package Admin;
 
-import CourseSchedulerMain;
+import Sched_App_GUI.CourseSchedulerMain;
+
 import java.io.*;
 import java.util.*;
 
@@ -13,7 +14,10 @@ import javax.swing.*;
 
 import java.awt.Container;
 import java.awt.event.*;
-
+/**
+ *
+ * @author Justin
+ */
 public class ErrorLogInterface{
 
 	private boolean running = true;
@@ -22,8 +26,9 @@ public class ErrorLogInterface{
      * Creates new form ErrorLogInterface
      */
     public ErrorLogInterface(CourseSchedulerMain ja) {
-    	this.mainApplet = CourseSchedulerMain;
+    	this.mainApplet = ja;
     	this.mainPanel = mainApplet.getMainPanel();
+    	initComponents();
     }
     
     private void createTable(){
@@ -91,7 +96,15 @@ public class ErrorLogInterface{
         
         //setRowHeight
         ErrorLog.setRowHeight(50);
-        mainPanel.add(ErrorLog);
+        this.mainPanel.add(ErrorLog);
+        
+        this.mainPanel.add(returnButton);
+        returnButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				mainApplet.initTestInterface();
+			}
+			
+		});
     }
     
     private void getErrorData(int max_rows){
@@ -103,7 +116,7 @@ public class ErrorLogInterface{
     }
     
                         
-    public void initComponents(JPanel mainPanel) {
+    private void initComponents() {
     	
         //initialize status selection categories
         errorLogStatus.addItem("New");
@@ -111,9 +124,10 @@ public class ErrorLogInterface{
         errorLogStatus.addItem("Reviewing");
         errorLogStatus.addItem("Solved");
 
-        this.mainPanel = mainPanel;
+        
     	getErrorData(20); 
     	mainPanel.repaint();
+    	mainPanel.revalidate();
         
     }          
              
@@ -126,18 +140,6 @@ public class ErrorLogInterface{
     private JPanel mainPanel;
     private CourseSchedulerMain mainApplet;
     private javax.swing.JTable ErrorLog;
-    private JComboBox errorLogStatus = new JComboBox();
-    /* 
-       // Variables declaration - do not modify                     
-    private javax.swing.JScrollPane ErrorLog_ScrollPanel;
-    private javax.swing.JToggleButton ErrorLog_SubmitButton;
-    private javax.swing.JLabel ErrorLog_Title;
-    private javax.swing.JPanel ScrollContainer_Panel;
-    private javax.swing.JPanel jPanel1;
-    // End of variables declaration    
-    
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel4;
-    // End of variables declaration//GEN-END:variables
-}*/
+    private JComboBox<String> errorLogStatus = new JComboBox<String>();
+
 }

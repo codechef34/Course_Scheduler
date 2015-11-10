@@ -16,45 +16,45 @@ public class CourseSchedulerMain extends JApplet {
 	/**
 	 * Create the applet.
 	 */
+	
+	private Object currentInterface;
+	
 	private int viewID = 0;
 	
 	public int getViewID(){
 		return this.viewID;
 	}
-	public void setView(int viewID){
-		
-		//clean mainPanel and remove components
-		this.viewID = viewID;
+	
+	public void cleanMainPanel(){
 		this.mainPanel.removeAll();
         this.mainPanel.repaint();
-        
-        int nextViewID = viewID;
-        if(viewID == 2){
-			Admin.ErrorLogInterface eli = new Admin.ErrorLogInterface(this);
-			eli.initComponents(this.mainPanel);
-			/*
-			while(true){
-				if(eli.checkCurrentViewID() != viewID){
-					nextViewID = eli.checkCurrentViewID();
-					break;
-				}
-			}
-			*/
-			//switchView(nextViewID);
-		}
-        else if(viewID == 0){
-        	initComponents();
-        }
-
 	}
+	
+	public void initSchedAppGUI(){
+		
+	}
+	public void initAdminHomeInterface(){
+		cleanMainPanel();
+		Admin.AdminHome ah = new Admin.AdminHome(this);
+	}
+	public void initErrorLogInterface(){
+		cleanMainPanel();
+		Admin.ErrorLogInterface eli = new Admin.ErrorLogInterface(this);
+	}
+	public void initLoginInterface(){
+		cleanMainPanel();
+		Admin.Login l = new Admin.Login(this);
+	}
+	public void initTestInterface(){
+		cleanMainPanel();
+		initComponents();
+	}
+	
 	
 	public JPanel getMainPanel(){
 		return mainPanel;
 	}
-	
-	public void switchView(int nextViewID){
-		setView(nextViewID);
-	}
+
 	
 	public CourseSchedulerMain() {
 		
@@ -65,29 +65,26 @@ public class CourseSchedulerMain extends JApplet {
 		
 		initComponents();
 		
-		eventLoop();
+		//switch view when button is pressed
+		btnAdminLogin.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				initLoginInterface();
+			}
+			
+		});
 	}
 	
-	public void eventLoop(){
-		//
-	}
+
+	
 	
 	public void initComponents(){
 		//TODO delete and replace with mainInterface run method
-				btnAdminLogin = new JButton("Admin Login");
-				
-				//switch view when button is pressed
-				btnAdminLogin.addActionListener(new ActionListener(){
-					public void actionPerformed(ActionEvent e){
-						setView(2);
-					}
-					
-				});
-				
 				//add button to panel
 				mainPanel.add(btnAdminLogin);
+				mainPanel.repaint();
+				mainPanel.revalidate();
 	}
 	
 	private JPanel mainPanel;
-	private JButton btnAdminLogin;
+	private JButton btnAdminLogin = new JButton("Admin Login");;
 }

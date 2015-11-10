@@ -17,12 +17,18 @@ import java.awt.event.ActionEvent;
 
 public class Login {
 
+	private Sched_App_GUI.CourseSchedulerMain mainApplet;
+	private JPanel mainPanel;
+	
+	private JTextField textField;
+	private JPasswordField passwordField;
+	
 	private JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -33,53 +39,56 @@ public class Login {
 				}
 			}
 		});
-	}
+	}*/
 Connection connect= null;
-AdminHome ah=new AdminHome();
-private JTextField textField;
-private JPasswordField passwordField;
+//AdminHome ah=new AdminHome();
+
 	/**
 	 * Create the application.
 	 */
-	public Login() {
-		initialize();
-		connect=DBConnection.dbConnector();
+	public Login(Sched_App_GUI.CourseSchedulerMain c) {
+		mainApplet = c;
+		mainPanel = c.getMainPanel();
+		initComponents();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(153, 50, 204));
-		frame.setBounds(100, 100, 725, 547);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+	private void initComponents() {
+//		frame = new JFrame();
+//		frame.getContentPane().setBackground(new Color(153, 50, 204));
+//		frame.setBounds(100, 100, 725, 547);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Username");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel.setBounds(119, 113, 146, 36);
-		frame.getContentPane().add(lblNewLabel);
+		mainPanel.add(lblNewLabel);
 		
 		textField = new JTextField();
 		textField.setBounds(355, 122, 153, 22);
-		frame.getContentPane().add(textField);
+		mainPanel.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Password");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_1.setBounds(119, 213, 87, 22);
-		frame.getContentPane().add(lblNewLabel_1);
+		mainPanel.add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Back");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		btnNewButton.setBounds(124, 313, 121, 36);
-		frame.getContentPane().add(btnNewButton);
+		mainPanel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Login");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try{
+				mainApplet.initAdminHomeInterface();
+			}
+				/*try{
+					
 					String query="select * from logindetails where UserName=? and Password=?";
 					PreparedStatement pst= connect.prepareStatement(query);
 					pst.setString(1, textField.getText());
@@ -88,8 +97,8 @@ private JPasswordField passwordField;
 					if(rs.next())
 					{
 						//JOptionPane.showMessageDialog(null, "connection successfull");
-						ah.setVisible(true);
-						frame.dispose();
+						//ah.setVisible(true);
+						
 					}
 					else
 					{
@@ -100,20 +109,20 @@ private JPasswordField passwordField;
 				{
 					JOptionPane.showMessageDialog(null, e);
 				}
-			}
+			}*/
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		btnNewButton_1.setBounds(424, 314, 97, 35);
-		frame.getContentPane().add(btnNewButton_1);
+		mainPanel.add(btnNewButton_1);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(355, 215, 166, 22);
-		frame.getContentPane().add(passwordField);
+		mainPanel.add(passwordField);
 		
 		JLabel lblNewLabel_2 = new JLabel("Administrator Login");
 		lblNewLabel_2.setForeground(new Color(128, 128, 128));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 28));
 		lblNewLabel_2.setBounds(199, 48, 309, 34);
-		frame.getContentPane().add(lblNewLabel_2);
+		mainPanel.add(lblNewLabel_2);
 	}
 }
