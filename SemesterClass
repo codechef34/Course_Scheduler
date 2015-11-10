@@ -1,0 +1,64 @@
+class Semester {
+    private ArrayList<Course> courseList;
+    private int section;
+    private int current_hours;
+    private int year;
+    private String semester;
+    
+    public Semester() {
+        // Initialize data fields to defaults
+        courseList = new ArrayList<Course>();
+        section = 0;
+        current_hours = 0;
+        year = 1776;
+        semester = "Spring";
+    }
+    
+    public ArrayList<Course> getCourseList() {
+        return courseList;
+    }
+    
+    public void setCourseList(ArrayList<Course> courseList) {
+        this.courseList = new ArrayList<Course>(courseList);
+    }
+    
+    public String toString() {
+        // return courseList.toString();
+        String str = new String();
+        
+        // For each Course in courseList, return the course department and ID
+        for (Course c : courseList) {
+            // Add a comma to separate vals only if not the first iteration
+            if (!str.isEmpty()) {
+                str.concat(",");
+            }
+            
+            // Add the course department and ID to the  string
+            str.concat(String.format("%s%s", c.getDepartment(), c.getID()));
+        }
+        
+        return str;
+    }
+    
+    public String getSemesterDate() {
+        return String.format("%s %d", semester, year);
+    }
+    
+    public Boolean hasCourse(Course c) {
+        return courseList.contains(c);
+    }
+    
+    public void addCourse(Course c) {
+        courseList.add(c);
+    }
+    
+    public void removeCourse(Course c) {
+        courseList.remove(c);
+    }
+    
+    
+    
+    
+    
+    
+}
