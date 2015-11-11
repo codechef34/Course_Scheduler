@@ -132,9 +132,7 @@ public class ErrorLogInterface{
     }          
              
 
-    public int checkCurrentViewID() {
-    	return nextViewID;
-    }
+
     
     private JButton returnButton = new JButton("Return");
     private JPanel mainPanel;
