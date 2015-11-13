@@ -45,6 +45,7 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
+CourseSchedApp_v3.0.1/build.xml
 
 #Eclipse#
 #########
