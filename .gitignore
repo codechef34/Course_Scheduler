@@ -94,7 +94,10 @@ local.properties
 
 *.form
 *.xml
+*/build.xml
 
 #Intellij#
 *.idea
 *.iml
+
+*.policy
