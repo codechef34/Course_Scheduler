@@ -1,0 +1,59 @@
+// SimpleFileChooser.java
+// A simple file chooser to see what it takes to make one of these work.
+//
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import javax.swing.*;
+
+public class SimpleFileChooser extends JFrame {
+
+   public SimpleFileChooser(JFileChooser chooser) {
+    
+    super("File Chooser Test Frame");
+    setSize(350, 200);
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+    Container c = getContentPane();
+    c.setLayout(new FlowLayout());
+    
+    JButton saveButton = new JButton("Save");
+    
+    final JLabel statusbar = 
+                 new JLabel("Output of your selection will go here");
+
+    // Create a file chooser that opens up as a Save dialog
+    saveButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+        final JFrame f = new JFrame("Say Bye Bye!");
+        f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        int option = chooser.showSaveDialog(SimpleFileChooser.this);
+        if (option == JFileChooser.APPROVE_OPTION) {
+          statusbar.setText("You saved " + ((chooser.getSelectedFile()!=null)?
+                            chooser.getSelectedFile().getName():"nothing"));
+          if(chooser.getSelectedFile() != null) {
+              setVisible(false);
+              dispose();
+              showDialog(f);
+          }
+          
+        }
+        else {
+          statusbar.setText("You canceled.");
+        }
+      }
+    });
+    
+    c.add(saveButton);
+    c.add(statusbar);
+    
+    this.setVisible(true);
+  }
+
+    
+   
+   public static void showDialog(Component c) {
+        JOptionPane.showMessageDialog(c, "Closing");
+    }
+
+}
